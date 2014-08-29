@@ -7,6 +7,14 @@ void change(double &r, double s) {
     r = 100;
     s = 200;
 }
+double &biggest (double &r, double &s) {
+    if ( r > s ) return r;
+    else         return s;
+}
+double *silly_function() {
+    static double r = 342;
+    return &r;
+}
 int main ()
 {
 
@@ -31,16 +39,44 @@ int main ()
     // 
     // b = 100;
     // cout << "The value of a is " << a << endl;
-    cout << "Enter something here please ";
-    int x;
-    cin >> x;
-    double k, m;
-    k = 3;
-    m = 4;
-    change(k, m);
-    cout << "k " << k << endl;
-    cout << "m " << m << endl;
-
+    // cout << "Enter something here please ";
+    // int x;
+    // cin >> x;
+    // double k, m;
+    // k = 3;
+    // m = 4;
+    // change(k, m);
+    // cout << "k " << k << endl;
+    // cout << "m " << m << endl;
+//    double k = 3;
+//    double m = 7;
+//    cout << "k " << k << endl;
+//    cout << "m " << m << endl;
+//    cout << endl;
+//
+//    biggest(k, m) = 10;
+//    
+//    cout << "k " << k << endl;
+//    cout << "m " << m << endl;
+//    cout << endl;
+//
+//    biggest(k, m) ++;
+//    
+//    cout << "k " << k << endl;
+//    cout << "m " << m << endl;
+//    cout << endl;
+//    double *a;
+//    
+//    a = silly_function();
+//
+//    double &b = *a;
+//
+//    b+= 1;
+//    b = b * b;
+//    b += 4;
+//
+//    cout << "*a " << *a << endl;
+//    cout << "b " << b << endl;
     return 0;
 }
 
