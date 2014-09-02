@@ -1,5 +1,5 @@
  CFLAGS=-Wall -g
 
-all: beginnings 
+all: 
 clean: 
-	rm -f beginnings
+	

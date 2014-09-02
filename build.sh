@@ -1,8 +1,8 @@
 #!/bin/bash
 
-make
+make $1
 echo "Press ENTER to Continue"
 read
 clear
-./beginnings
-make clean
+./$1
+rm -f $1
