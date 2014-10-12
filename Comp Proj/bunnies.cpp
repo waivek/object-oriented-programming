@@ -40,6 +40,11 @@ int main()
         //cout << "Bunny no. " << a << " has a new friend.";
     }
     long long i;
+    FILE *fp = fopen("Degree.txt", "w");
+    for(i = 1; i < 36691; i++) {
+        fprintf(fp, "%lld has a degree of %d\n", i, bunnyfriends[i]);
+    }
+    fclose(fp);
     while(i!=-1)
     {
         cout << "Enter bunny no:\n";
