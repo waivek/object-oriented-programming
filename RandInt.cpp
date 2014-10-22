@@ -1,25 +1,60 @@
-#include <iostream.h>
+#include <iostream>
 #include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
 
-class randomInt {
+class randomInt 
+{
 private:
-    const int RANDMAX = 10;
     int val;
-    int min;
-    int max;
+    int rmin;
+    int rmax;
 public:
-    randomInt() {
-        max = 
-        val = rand() % (RANDMAX + 1);
+    randomInt() 
+    {
+        srand(time(NULL));
+        rmin = 0;
+        rmax = 1;
+        generate();
     }
-    randomInt(int min, int max) {
-        val = rand % (max - min) + min;
+    randomInt(int small, int big) 
+    {
+        srand(time(NULL));
+        rmin = small;
+        rmax = big;
+        generate();
     }
-    int getValue();
-}
-int randomInt::getValue() {
+    int value();
+    void generate();
+};
+int randomInt::value() 
+{
     return val;
 }
 
-
-
+void randomInt::generate() 
+{
+    val = rand() % (rmax - rmin + 1) + rmin;
+}
+/*
+int main(int argc, char **argv) 
+{
+    system("clear");
+    randomInt r(1, 6);
+    randomInt r1(0, 10);
+    char x = ' ';
+    while(1) 
+    {
+        printf("%d %d\n", r.value(), r1.value());
+        printf("? ");
+        x = getchar();
+        system("clear");
+        if(x == '?') 
+        {
+            break;
+        }
+        r.generate();
+        r1.generate();
+    }
+}
+*/
