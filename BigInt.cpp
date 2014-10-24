@@ -28,8 +28,8 @@ public:
     }
     void display(); 
     int mod(int a, int b);
-    void increment();
-    void decrement();
+    void increment(int c);
+    void decrement(int c);
 };
 
 void BigInt::display() 
@@ -45,8 +45,19 @@ int BigInt::mod(int a, int b)
     t = a%b;
     return (t<0 ? t+b:t);
 }
-void BigInt::increment()
+void BigInt::increment(int c = 0)
 {
+    if(c == 0) {
+        if(strcmp(ptr, "1") == 0 && !positive) {
+            positive = 1;
+            decrement(1);
+            return;
+        }
+        if(!positive) {
+            decrement(1);
+            return;
+        }
+    }
     char *tmp = ptr + strlen(ptr) - 1;
     while(1) {
         *tmp = mod(*tmp - '0' + 1, 10)  + '0';
@@ -60,8 +71,17 @@ void BigInt::increment()
         ptr = tmp;
     }
 }
-void BigInt::decrement()
+void BigInt::decrement(int c = 0)
 {
+    if(c == 0) {
+        if(*ptr == '0') {
+            positive = 0;
+        }
+        if(!positive) {
+            increment(1);
+            return;
+        }
+    }
     // printf("Decrement\n");
     char *tmp = ptr + strlen(ptr) - 1;
     while(1) {
@@ -81,9 +101,9 @@ void BigInt::decrement()
         // printf("ptr++\n");
         if(*(ptr+1) != '\0') {
             ptr++;
-        } else {
+        }/* else {
             positive = mod(positive, 1);
-        }
+        }*/
     }
 }
 int main(int argc, char * argv[])
@@ -95,8 +115,8 @@ int main(int argc, char * argv[])
     char x = ' ';
     for(x = ' '; x != '?'; printf("? "), x = getchar()) {
         if(x == ' ') continue;
-        b.increment();
-        // b.decrement();
+        // b.increment();
+        b.decrement();
         b.display();
 
     }
