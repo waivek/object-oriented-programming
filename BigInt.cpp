@@ -33,6 +33,15 @@ public:
         ptr += MAX_SIZE - strlen(obj.ptr) -1;
         strcpy(ptr, obj.ptr);
     }
+    
+    BigInt& operator=(const BigInt& obj)
+    {
+        ptr = (char *) malloc(MAX_SIZE); 
+        memset(ptr, '0', MAX_SIZE);
+        ptr += MAX_SIZE - strlen(obj.ptr) -1;
+        strcpy(ptr, obj.ptr);
+        return *this;
+    }
     ~BigInt() {
         printf("BigInt: %s is being deleted\n", ptr);
         ptr += strlen(ptr) + 1 - MAX_SIZE;
