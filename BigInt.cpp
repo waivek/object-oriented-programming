@@ -51,7 +51,7 @@ public:
     int mod(int a, int b);
     void increment(int c);
     void decrement(int c);
-    friend BigInt add(BigInt a, BigInt b);
+    friend BigInt operator+(BigInt a, BigInt b);
     BigInt operator++();
     BigInt operator++(int);
     BigInt operator--();
@@ -137,7 +137,7 @@ BigInt BigInt::operator--(int)
     decrement();
     return B;
 }
-BigInt add(BigInt a, BigInt b) 
+BigInt operator+(BigInt a, BigInt b) 
 {
     int x = 0;
     char *c;
@@ -193,7 +193,7 @@ int main(int argc, char * argv[])
         // ++b;
         // a.display();
         // b.display();
-        BigInt c = add(a, b);
+        BigInt c = a + b;
         c.display();
         getchar();
     }
