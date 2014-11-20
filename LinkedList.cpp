@@ -8,8 +8,8 @@ public:
     virtual ~Node();
     Node* getNext();
     void setNext(Node *n);
-    virtual int area() = 0;
-    virtual void display() = 0;
+    virtual int area(){};
+    virtual void display() {};
 };
 Node::Node() 
 {
@@ -29,6 +29,7 @@ void Node::setNext(Node *n)
     next = n;
 }
 
+// TRIANGLE NODE STARTS HERE
 class triangleNode:public Node
 {
 private:
@@ -60,6 +61,38 @@ void triangleNode::display()
     printf("Height is %d\n", height);
     printf("Base is %d\n", base);
 }
+
+// SQUARE NODE STARTS HERE
+
+class squareNode:public Node
+{
+private:
+    int side;
+
+public:
+    squareNode();
+    ~squareNode();
+    int area();
+    void display();
+};
+squareNode::squareNode() 
+{
+    printf("Making a square node\n");
+    side = 5;
+}
+squareNode::~squareNode()
+{
+    printf("Destroying the square node\n");
+}
+int squareNode::area() 
+{
+    return side * side;
+}
+void squareNode::display() 
+{
+    printf("Side is %d\n", side);
+}
+// LINKED LIST STARTS HERE
 class LinkedList 
 {
 private:
@@ -78,6 +111,7 @@ LinkedList::LinkedList()
 }
 LinkedList::~LinkedList() 
 {
+    printf("Deleting node by node\n");
     Node *t = start->getNext();
     while(start) {
         delete start;
@@ -98,9 +132,9 @@ void LinkedList::addNode()
         case 1:
             n = new triangleNode();
             break;
-        // case 2:
-        //     Node n = new squareNode();
-        //     break;
+        case 2:
+            n = new squareNode();
+            break;
         default:
             printf("Invalid case selected!");
     }
@@ -133,8 +167,11 @@ int LinkedList::totalArea()
 int main(int argc, const char *argv[])
 {
     LinkedList l;
-    l.addNode();
-    l.addNode();
+    char x;
+    for(x = ' '; x != '?'; printf("? "), x = getchar()) {
+        l.addNode();
+        getchar();
+    }
     l.traverse();
     printf("The total area is %d\n", l.totalArea());
     return 0;
