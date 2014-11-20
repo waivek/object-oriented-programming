@@ -136,7 +136,8 @@ void LinkedList::addNode()
             n = new squareNode();
             break;
         default:
-            printf("Invalid case selected!");
+            printf("Invalid case selected!\n");
+            return ;
     }
     n->setNext(start);
     start = n;

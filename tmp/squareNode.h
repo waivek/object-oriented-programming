@@ -1,8 +1,7 @@
-// #include "Node.h"
 class squareNode:public Node
 {
 private:
-    int side;
+    int s;
 
 public:
     squareNode();
@@ -13,7 +12,7 @@ public:
 squareNode::squareNode() 
 {
     printf("Making a square node\n");
-    side = 5;
+    s = 5;
 }
 squareNode::~squareNode()
 {
@@ -21,9 +20,9 @@ squareNode::~squareNode()
 }
 int squareNode::area() 
 {
-    return side * side;
+    return s * s;
 }
 void squareNode::display() 
 {
-    printf("Side is %d\n", side);
+    printf("Side is %d\n", s);
 }

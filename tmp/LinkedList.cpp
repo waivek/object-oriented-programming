@@ -1,38 +1,12 @@
 #include <stdio.h>
-#include "Node.h"
-#include "triangleNode.h"
-#include "squareNode.h"
-class LinkedList 
-{
-private:
-    Node *start;
-public:
-    LinkedList();
-    ~LinkedList();
-    void addNode();
-    void traverse();
-    int totalArea();
-};
-LinkedList::LinkedList() 
-{
-    start = NULL;
-}
-LinkedList::~LinkedList() 
-{
-    printf("Deleting node by node\n");
-    Node *t = start->getNext();
-    while(start) {
-        delete start;
-        start = t;
-        if(t) t = t->getNext();
-    }
-    printf("Destroying a LinkedList\n");
-}
+#include "LinkedList.h"
 void LinkedList::addNode() 
 {
     printf("Enter type of node:\n");
     printf("1) triangle\n");
     printf("2) square\n");
+    printf("3) rectangule\n");
+    printf("4) circle\n");
     int o;
     scanf("%d", &o);
     Node *n;
@@ -42,6 +16,12 @@ void LinkedList::addNode()
             break;
         case 2:
             n = new squareNode();
+            break;
+        case 3:
+            n = new rectangleNode();
+            break;
+        case 4:
+            n = new circularNode();
             break;
         default:
             printf("Invalid case selected!");
