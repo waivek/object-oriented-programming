@@ -8,25 +8,30 @@ private:
     int m;
     int y;
 public:
-    Date() {
-        d = 1;
-        m = 1;
-        y = 1900;
-    }
-    Date(int a, int b, int c) {
-        d = a;
-        m = b;
-        y = c;
-    }
+    Date(); 
+    Date(int a, int b, int c);
     int day();
     int month();
     int year();
-    char *cmonth();
-    char *cdow();
+    void cmonth();
+    void cdow();
     int operator<(Date d);
     int get_days();
+    int operator-(Date d);
 };
 
+Date::Date() 
+{
+    d = 1;
+    m = 1;
+    y = 1900;
+}
+Date::Date(int a, int b, int c) 
+{
+    d = a;
+    m = b;
+    y = c;
+}
 int Date::day() 
 {
     return d;
@@ -40,7 +45,7 @@ int Date::year()
     printf("The Year is %d\n", y);
     return y;
 }
-char *Date::cdow()
+void Date::cdow()
 {
     char day[7][15] = {
         "Monday",
@@ -52,11 +57,9 @@ char *Date::cdow()
         "Sunday"
     };
     int nd = get_days() % 7;
-    char *tmp = day[nd];
-    printf("Day=%s\n", tmp);
-    return tmp;
+    printf("Day=%s\n", day[nd]);
 }
-char *Date::cmonth() 
+void Date::cmonth() 
 {
     char mth[12][15] = {
         "January",
@@ -72,10 +75,7 @@ char *Date::cmonth()
         "November",
         "December"
     };
-    char *tmp = mth[m - 1];
-    printf("Month=%s\n", tmp);
-    // return mth[m - 1];
-    return tmp;
+    printf("Month=%s\n", mth[m - 1]);
 }
 int Date::operator<(Date d1)
 {
@@ -103,60 +103,49 @@ int Date::operator<(Date d1)
 }
 int Date::get_days() 
 {
+    int nm[13] = {
+        0,
+        31, 28, 31, 30,
+        31, 30, 31, 31,
+        30, 31, 30, 31
+    };
     Date d1;
     int i = 0;
-    while(d1 < *this) {
-        i++;
-        d1.d++;
-        // printf("Date is %02d/%02d/%04d & i = %03d\n", d1.d, d1.m, d1.y, i);
-        if(d1.m == 2) {
-            int lyr = (d1.y % 4) == 0;
-            if(d1.y % 100 == 0) {
-                if(d1.y % 400 != 0) {
-                    lyr = 0;
-                }
-            }
-            if(lyr && d1.d > 29 || !lyr && d1.d > 28) {
-                d1.m++;
-                d1.d = 1;
-            }
-        } else if (
-                (d1.m == 1) ||
-                (d1.m == 3) ||
-                (d1.m == 5) ||
-                (d1.m == 7) ||
-                (d1.m == 8) ||
-                (d1.m == 10) ||
-                (d1.m == 12) 
-                ) {
-            if(d1.d > 31) {
-                d1.m = (d1.m+1) % 12;
-                d1.d = 1;
-                if(d1.m == 1) {
-                    d1.y++;
-                }
-            }
-        } else {
-            // printf("30-Day Month Encountered\n");
-            // printf("Date is %d/%d/%d\n", d1.d, d1.m, d1.y);
-            // getchar();
-            if(d1.d > 30) {
-                d1.m++;
-                d1.d = 1;
-            }
+    if(d1.y != y) {
+        i += (y - d1.y) * 365;
+        i += (y - 1900) / 4;
+    }
+    if(d1.m != m) {
+        int j = 0;
+        for(j = 1; j < m; j++) {
+            i += nm[j];
         }
+
+    }
+    if(d1.d != d) {
+        i += (d - d1.d);
     }
     return i;
 }
+int Date::operator-(Date d) {
+    return (*this).get_days() - d.get_days();
+}
 int main(int argc, char *argv[]) 
 {
-    // Date d1(03, 05, 2014);
-    // printf("Date is %d/%d/%d\n", d1.day(), d1.month(), d1.year());
-    // printf("Month is %s\n", d1.cmonth());
-    // Date d2(04, 05, 2014);
-    // printf("Date is %d/%d/%d\n", d2.day(), d2.month(), d2.year());
-    // printf("Month is %s\n", d2.cmonth());
-    // printf("Is first date < second date: Ans: %d\n", d1 < d2);
+    int m1;
+    int d1;
+    int y1;
+    printf("Enter Day:\n");
+    scanf("%d", &d1);
+    if(d1 == 0) {
+        return 0;
+    }
+    printf("Enter Month:\n");
+    scanf("%d", &m1);
+    printf("Enter Year:\n");
+    scanf("%d", &y1);
+    Date d2(d1, m1, y1);
+
     int m;
     int d;
     int y;
@@ -170,8 +159,7 @@ int main(int argc, char *argv[])
     printf("Enter Year:\n");
     scanf("%d", &y);
     Date d3(d, m, y);
-    printf("Number of days: %d\n", d3.get_days());
-    d3.cdow();
+    printf("Number of days: %d\n", d2 - d3);
     main(argc, argv);
     return 0;
 }
