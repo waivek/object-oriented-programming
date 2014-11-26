@@ -184,7 +184,6 @@ int get_max_len(char *a, char *b)
 }
 char* complement(char* p, int d) 
 {
-    // invariant: everything before p has been complemented
 
     // VERY HACKY IF CONDITION, NEED TO RESTRUCTURE ENTIRE METHOD
     // MAYBE TRY A MODULO 10 WITH THE INITIAL TEN'S COMPLEMENT
@@ -203,11 +202,9 @@ char* complement(char* p, int d)
     d--;
     while(d != 0) {
         *p = (9 + '0') - (*p - '0');
-        // printf("Hi\n");
         p--;
         d--;
     }
-    putchar('\n');
     p = p - d + 1;
     return p;
 }

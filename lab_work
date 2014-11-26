@@ -1,0 +1,51 @@
+1) Implement a list class that uses an array of listItem objects. The listItem class should be a polymorphic class that can store a numeric item ( float or int ) and should also be able to store a null terminated char array to store strings. The listItem class derivatives should implement operator overloading to provide comparison functionality that it transparent to its users.
+
+The list class should implement some sorting algorithms which would automatically sort a list of numbers or a list of strings. The idea of this program is to demonstrate that algorithms that are logically same but differ in data types need to be coded only once, and the rest can be taken care of by polymorphism.
+
+#define maxList 1000
+#define stringItemSize 100
+listClass
+listItem *data[maxList];  // pointers to the base class listItem
+int itemCount;
+
+listClass(); // constructor makes itemCount=0
+add(int);  // adds an integer item to list increases ItemCount 
+add(float);  // adds float
+add(char *p);  // adds string
+sort(); // sorts the list assuming that all list items are homogeneous
+displayList(); // displays the list on screen one item per line 
+count();    // returns the total number of elements in the list
+
+class listItem  // base class to enable polymorphism
+  // this would be an abstract class which might not be instantiated by itself  
+          // To be more authentic you can consider making pure virtual functions that you feel need to be there in the derived classed.
+
+class intItem
+  int data
+  operator >
+  operator <
+  int getItem()
+  setitem(int)
+
+class floatItem
+  float data
+  operator >
+  operator <
+  int getItem()
+  setitem(float)
+
+class stringItem
+  char data[stringItemSize]
+  operator >
+  operator <
+  char *getItem()
+  setItem(char *)
+
+ASSUMPTIONS:
+
+The listClass can be used to create a list of homogeneous items as well, however for sorting purposes we would only consider all integer or all float or all string kind of items in the list.
+
+Implement only one sort algorithm for demonstration sake.
+Think of what other algorithms that can be implemented.
+( Reverse the list, reverse sort the list,
+
