@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+#include <iostream>
 
 class Date 
 {
@@ -132,36 +133,51 @@ int Date::operator-(Date d) {
 }
 int main(int argc, char *argv[]) 
 {
-    int m1;
-    int d1;
-    int y1;
+    int m1 = 0;
+    int d1 = 0;
+    int y1 = 0;
+    int m = 0;
+    int d = 0;
+    int y = 0;
+try {
     printf("Enter Day:\n");
     scanf("%d", &d1);
-    if(d1 == 0) {
-        return 0;
+    if(d1 <= 0) {
+        throw "Invalid Day";
     }
     printf("Enter Month:\n");
     scanf("%d", &m1);
+    if(m1 > 12) {
+        throw "Invalid Month";
+    }
     printf("Enter Year:\n");
     scanf("%d", &y1);
-    Date d2(d1, m1, y1);
+    if(y1 < 1900) {
+        throw "Invalid Year";
+    }
 
-    int m;
-    int d;
-    int y;
-    printf("Enter Day:\n");
     scanf("%d", &d);
-    if(d == 0) {
-        return 0;
+    if(d < 0) {
+        throw "Invalid Day";
     }
     printf("Enter Month:\n");
     scanf("%d", &m);
+    if(m > 12) {
+        throw "Invalid Month";
+    }
     printf("Enter Year:\n");
+    if(y < 1900) {
+        throw "Invalid Year";
+    }
     scanf("%d", &y);
+}
+catch(const char *p) {
+    printf("Process Ended Because: %s\n", p);
+    return 0;
+}
+    Date d2(d1, m1, y1);
     Date d3(d, m, y);
     printf("Number of days: %d\n", d2 - d3);
     main(argc, argv);
     return 0;
 }
-
-    

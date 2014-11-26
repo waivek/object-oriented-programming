@@ -3,7 +3,9 @@
 #include <string.h>
 #include <math.h>
 #include <iostream>
-
+using std::max;
+int get_max_len(char *, char *);
+char* complement(char* , int );
 class BigInt {
 private:
     static const int MAX_SIZE = 100;
@@ -56,6 +58,7 @@ public:
     BigInt operator++(int);
     BigInt operator--();
     BigInt operator--(int);
+    friend BigInt subtract(BigInt, BigInt);
 };
 
 void BigInt::display() 
@@ -175,6 +178,44 @@ BigInt operator+(BigInt a, BigInt b)
 
     return d;
 }
+int get_max_len(char *a, char *b) 
+{
+    return max(strlen(a), strlen(b));
+}
+char* complement(char* p, int d) 
+{
+    // invariant: everything before p has been complemented
+    p = p + strlen(p) - d;
+    while(*p != '\0') {
+        putchar(*p);
+        *p = (9 + '0') - (*p - '0');
+        // printf("Hi\n");
+        if(*(p+1) == '\0') {
+            // printf("Hi\n");
+            *p = *p + 1;
+        }
+        p++;
+    }
+    p = p - d;
+    return p;
+}
+BigInt subtract(BigInt x1, BigInt x2)
+{
+    int len  = get_max_len(x1.ptr, x2.ptr);
+    printf("Length = %d\n", len);
+    x2.ptr = complement(x2.ptr, len);
+    printf("x2 complement is %s\n", x2.ptr);
+    BigInt diff = x1 + x2;
+    if(strlen(diff.ptr)  == len + 1) {
+        *diff.ptr = '0';
+        diff.ptr++;
+        diff.positive = 1;
+    } else {
+        diff.ptr = complement(diff.ptr, len);
+        diff.positive = 0;
+    }
+    return diff;
+}
 int main(int argc, char * argv[])
 {
     char num[100] = "";
@@ -193,7 +234,8 @@ int main(int argc, char * argv[])
         // ++b;
         // a.display();
         // b.display();
-        BigInt c = a + b;
+        // BigInt c = a - b;
+        BigInt c = subtract(a, b);
         c.display();
         getchar();
     }
