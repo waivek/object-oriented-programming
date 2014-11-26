@@ -185,26 +185,38 @@ int get_max_len(char *a, char *b)
 char* complement(char* p, int d) 
 {
     // invariant: everything before p has been complemented
-    p = p + strlen(p) - d;
-    while(*p != '\0') {
-        putchar(*p);
+
+    // VERY HACKY IF CONDITION, NEED TO RESTRUCTURE ENTIRE METHOD
+    // MAYBE TRY A MODULO 10 WITH THE INITIAL TEN'S COMPLEMENT
+    if(*p == '0' && strlen(p) == 1) {
+        p = p - d;
+        *p = *p + 1;
+        return p;
+    }
+    p = p + strlen(p) - 1;
+    while(*p == '0') {
+        d--;
+        p--;
+    }
+    *p = (10 + '0') - (*p - '0');
+    p--;
+    d--;
+    while(d != 0) {
         *p = (9 + '0') - (*p - '0');
         // printf("Hi\n");
-        if(*(p+1) == '\0') {
-            // printf("Hi\n");
-            *p = *p + 1;
-        }
-        p++;
+        p--;
+        d--;
     }
-    p = p - d;
+    putchar('\n');
+    p = p - d + 1;
     return p;
 }
 BigInt subtract(BigInt x1, BigInt x2)
 {
     int len  = get_max_len(x1.ptr, x2.ptr);
-    printf("Length = %d\n", len);
+    // printf("Length = %d\n", len);
     x2.ptr = complement(x2.ptr, len);
-    printf("x2 complement is %s\n", x2.ptr);
+    // printf("x2 complement is %s\n", x2.ptr);
     BigInt diff = x1 + x2;
     if(strlen(diff.ptr)  == len + 1) {
         *diff.ptr = '0';
