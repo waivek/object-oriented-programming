@@ -237,12 +237,9 @@ int main(int argc, char * argv[])
         printf("b:");
         std::cin >> num;
         BigInt b = num;
-        // b.increment();
-        // b.decrement();
         // b++;
         // ++b;
-        // a.display();
-        // b.display();
+        // BigInt c = a + b;
         // BigInt c = a - b;
         BigInt c = subtract(a, b);
         c.display();
